@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,7 +17,23 @@ namespace Week2Test
             //  lblTitle.Text = " I'm losing my mind";
 
             //1. Open the connection
-            String _connectionString = "Data Source=SQL5110.site4now.net;Initial Catalog=db_9ab8b7_25dda11927;User Id=db_9ab8b7_25dda11927_admin;Password=dSZm274x;";
+            String _connectionString = "";
+            if(ConfigurationManager.ConnectionStrings["DevelopmentConnectiontring"].ConnectionString.Equals("Dev"))
+            {
+                _connectionString = AppConstant.AppConnection.DevConnection;
+
+            }
+            else if (ConfigurationManager.ConnectionStrings["DevelopmentConnectiontring"].ConnectionString.Equals("Test"))
+            {
+                _connectionString = AppConstant.AppConnection.TestConnection;
+
+            }
+            else
+            {
+                _connectionString = AppConstant.AppConnection.DevConnection;
+
+            }
+
 
             //Create connection
             SqlConnection conn = new SqlConnection();
@@ -41,7 +58,7 @@ namespace Week2Test
                 DataRow row = dt.NewRow();
                 row["UserID"] = reader["UID"];
                 row["UserName"] = reader["UserName"];
-                row["USerLevel"] = reader["USerLevel"];
+                row["UserLevel"] = reader["UserLevel"];
 
                 dt.Rows.Add(row);
             }
