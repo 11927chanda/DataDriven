@@ -15,6 +15,17 @@ namespace Week2Test
             public static String BetaConnection = "";
         }
         
-
+        public enum TAbUser
+        {
+            UID,
+            UserName,
+            UserLevel
+        }
+        public class UserLevel
+        {
+            public static String Admin = "3";
+            public static String User = "2";
+            public static String Supervisor = "1";
+        }
     }
 }

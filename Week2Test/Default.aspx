@@ -11,7 +11,7 @@
         <div>
              <asp:Label ID="Label1" runat="server" Text="This is a label"></asp:Label>
             <br />
-            <asp:GridView ID="gvResult" runat="server"></asp:GridView>
+            <asp:GridView ID="gvResult" runat="server" OnRowDataBound="gvResult_RowDataBound"></asp:GridView>
         </div>
        
     </form>

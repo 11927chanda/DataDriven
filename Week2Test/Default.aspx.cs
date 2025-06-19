@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace Week2Test
 {
@@ -13,12 +14,12 @@ namespace Week2Test
 
             //1. Open the connection
             String _connectionString = "";
-            if (ConfigurationManager.ConnectionStrings["DevelopmentConnectiontring"].ConnectionString.Equals("Dev"))
+            if (ConfigurationManager.ConnectionStrings["DevelopmentConnectionString"].ConnectionString.Equals("Dev"))
             {
                 _connectionString = AppConstant.AppConnection.DevConnection;
 
             }
-            else if (ConfigurationManager.ConnectionStrings["DevelopmentConnectiontring"].ConnectionString.Equals("Test"))
+            else if (ConfigurationManager.ConnectionStrings["DevelopmentConnectionString"].ConnectionString.Equals("Test"))
             {
                 _connectionString = AppConstant.AppConnection.TestConnection;
 
@@ -83,6 +84,43 @@ namespace Week2Test
             catch (Exception ex)
             {
                 //
+            }
+
+           
+        }
+        protected void gvResult_RowDataBound(object sender, GridViewRowEventArgs e) 
+        {
+            if (e.Row.RowType.Equals(DataControlRowType.DataRow))
+            {
+                Image img = new Image();
+
+                //checkbox
+                //  CheckBox checkbox = new CheckBox();
+
+                DropDownList ddl = new DropDownList();
+
+                if (e.Row.Cells[(int)AppConstant.TAbUser.UserLevel].Text.Equals(AppConstant.UserLevel.User))
+                {
+                    img.ImageUrl = "~/images/pawn.gif";
+
+                }
+                else if (e.Row.Cells[(int)AppConstant.TAbUser.UserLevel].Text.Equals(AppConstant.UserLevel.Supervisor))
+                {
+                    img.ImageUrl = "~/images/knight.gif";
+                }
+                else
+                {
+                    img.ImageUrl = "~/images/king.gif";
+                }
+                e.Row.Cells[(int)AppConstant.TAbUser.UserLevel].Controls.Add(img);
+               // e.Row.Cells[0].Controls.Add(checkbox);
+
+                for (int i = 1; i<= Int32.Parse(e.Row.Cells[(int)AppConstant.TAbUser.UID].Text); i ++)
+                {
+                    ddl.Items.Add(i.ToString());
+                }
+
+                e.Row.Cells[0].Controls.Add(ddl);
             }
         }
     }
